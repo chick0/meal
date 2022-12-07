@@ -7,10 +7,6 @@
 !.yarn/versions
 node_modules/
 
-# python
-venv/
-__pycache__/
-
 # build output
 dist/
 dist.zip

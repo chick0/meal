@@ -2,15 +2,7 @@
 .github/
 .vscode/
 .yarn/
-__pycache__/
-app/
 dist/
 node_modules/
-venv/
-.env
-.env.example
-.flake8
-requirements.in
-requirements.txt
 *.py
 yarn.lock

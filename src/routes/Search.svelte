@@ -13,12 +13,15 @@
     /**
      * @typedef Result
      * @property {string} name
-     * @property {string} url
      * @property {object} code
      */
 
     /** @type {Result[]} */
     let result_list = [];
+
+    function create_url(code) {
+        return `/meal/${code.edu}/${code.school}`;
+    }
 
     onMount(() => {
         document.title = "급식";
@@ -80,7 +83,7 @@
         <ol class="list l">
             {#each result_list as result}
                 <li>
-                    <a href="#{result.url}">{result.name}</a>
+                    <a href="#{create_url(result.code)}">{result.name}</a>
                 </li>
             {/each}
         </ol>

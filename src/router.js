@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { wrap } from "svelte-spa-router/wrap";
 
 export const routes = {
