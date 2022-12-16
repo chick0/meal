@@ -1,5 +1,4 @@
-name: Create release
-
+name: Deploy
 on:
   push:
     tags:
@@ -7,13 +6,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  create-release:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
         uses: actions/checkout@v3
 
-      - name: Install dependency and build
+      - name: Install dependency and build frontend
         run: |
           yarn install
           yarn build
@@ -22,12 +21,17 @@ jobs:
         run: |
           python -c "sw=open('dist/sw.js',mode='r',encoding='utf-8').read();open('dist/sw.js',mode='w',encoding='utf-8').write(sw.replace('{tag}', '${{ github.ref_name }}'))"
 
-      - name: Taping dist
-        run: python tape.py
+      - name: Run CLI.py
+        env:
+          DP_HOST: ${{ secrets.DP_HOST }}
+          DP_NAME: ${{ secrets.DP_NAME }}
+          DP_TOKEN: ${{ secrets.DP_TOKEN }}
+          DP_TARGET: ./dist
+        run: |
+          wget https://gist.githubusercontent.com/chick0/8b5f5f32e652210e98d8941df075d949/raw/bd6a9db5aa3eeeccd25fd624e4f09cc4b8c1708f/cli.py
+          python cli.py
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          files: |
-            dist.zip
