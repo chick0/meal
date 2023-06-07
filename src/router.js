@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { wrap } from "svelte-spa-router/wrap";
+import { wrap } from "svelte-spa-router/wrap"
 
 export const routes = {
     "/": wrap({ asyncComponent: () => import("routes/Search.svelte") }),
@@ -8,4 +8,4 @@ export const routes = {
     "/meal/:edu/:school/:date?": wrap({ asyncComponent: () => import("routes/Meal.svelte") }),
 
     "*": wrap({ asyncComponent: () => import("src/NotFound.svelte") }),
-};
+}

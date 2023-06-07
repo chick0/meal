@@ -1,6 +1,6 @@
-import { writable } from "svelte/store";
+import { writable } from "svelte/store"
 
-export const show_allergy = writable(false);
+export const show_allergy = writable(false)
 
 /**
  * @typedef SchoolNameCache
@@ -10,6 +10,6 @@ export const show_allergy = writable(false);
  */
 
 /** @type {import("svelte/store").Writable<SchoolNameCache[]>} */
-export const school_name_cache = writable([]);
+export const school_name_cache = writable([])
 
-export const school_name = writable("");
+export const school_name = writable("")

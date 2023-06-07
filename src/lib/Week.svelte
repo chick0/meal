@@ -1,18 +1,18 @@
 <script>
-    import { get_day, get_date, to_ymd, is_today } from "src/date";
-    export let params = {};
+    import { get_day, get_date, to_ymd, is_today } from "src/date"
+    export let params = {}
 
-    let path = `/meal/${params.edu}/${params.school}`;
+    let path = `/meal/${params.edu}/${params.school}`
 
     /** @type {Date[]} */
-    let date_list = [];
+    let date_list = []
 
     /** @type {Date} */
-    let center = params.date;
+    let center = params.date
 
     for (let i = -3; i <= 3; i++) {
-        let date = new Date(center.valueOf() + 24 * 3600 * 1000 * i);
-        date_list.push(date);
+        let date = new Date(center.valueOf() + 24 * 3600 * 1000 * i)
+        date_list.push(date)
     }
 </script>
 
@@ -29,7 +29,7 @@
                 href="#{path}/{to_ymd(date)}"
                 on:click="{(event) => {
                     if (to_ymd(date) == to_ymd(params.date)) {
-                        event.preventDefault();
+                        event.preventDefault()
                     }
                 }}">
                 {get_day(date)}

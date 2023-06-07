@@ -1,17 +1,17 @@
 <script>
-    import { onMount } from "svelte";
-    import Router from "svelte-spa-router";
-    import { routes } from "src/router";
+    import { onMount } from "svelte"
+    import Router from "svelte-spa-router"
+    import { routes } from "src/router"
 
     /** @type {boolean} */
-    let is_component_loading = false;
+    let is_component_loading = false
 
     onMount(() => {
         window.onunhandledrejection = () => {
-            alert("치명적인 오류가 발생해 재시작합니다.");
-            window.location.reload();
-        };
-    });
+            alert("치명적인 오류가 발생해 재시작합니다.")
+            window.location.reload()
+        }
+    })
 </script>
 
 {#if is_component_loading}
@@ -23,8 +23,8 @@
 <Router
     routes="{routes}"
     on:routeLoading="{() => {
-        is_component_loading = true;
+        is_component_loading = true
     }}"
     on:routeLoaded="{() => {
-        is_component_loading = false;
+        is_component_loading = false
     }}" />

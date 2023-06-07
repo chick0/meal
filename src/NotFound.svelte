@@ -1,12 +1,12 @@
 <script>
-    import { onMount } from "svelte";
+    import { onMount } from "svelte"
 
     // svelte-ignore unused-export-let
-    export let params = {};
+    export let params = {}
 
     onMount(() => {
-        document.title = "404 - 페이지를 찾을 수 없음";
-    });
+        document.title = "404 - 페이지를 찾을 수 없음"
+    })
 </script>
 
 <div class="message-box l">

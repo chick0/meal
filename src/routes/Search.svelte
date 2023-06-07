@@ -1,14 +1,14 @@
 <script>
-    import { onMount } from "svelte";
+    import { onMount } from "svelte"
 
-    let placeholder_list = ["ㅇㅇ초", "ㅇㅇ중", "ㅇㅇ고", "ㅇㅇ초등학교", "ㅇㅇ중학교", "ㅇㅇ고등학교"];
-    let placeholder = placeholder_list[Math.floor(Math.random() * placeholder_list.length)];
+    let placeholder_list = ["ㅇㅇ초", "ㅇㅇ중", "ㅇㅇ고", "ㅇㅇ초등학교", "ㅇㅇ중학교", "ㅇㅇ고등학교"]
+    let placeholder = placeholder_list[Math.floor(Math.random() * placeholder_list.length)]
 
-    let school_name = "";
+    let school_name = ""
 
-    let is_loading = false;
+    let is_loading = false
 
-    let has_result = false;
+    let has_result = false
 
     /**
      * @typedef Result
@@ -17,15 +17,15 @@
      */
 
     /** @type {Result[]} */
-    let result_list = [];
+    let result_list = []
 
     function create_url(code) {
-        return `/meal/${code.edu}/${code.school}`;
+        return `/meal/${code.edu}/${code.school}`
     }
 
     onMount(() => {
-        document.title = "급식";
-    });
+        document.title = "급식"
+    })
 </script>
 
 <div class="lf">
@@ -39,27 +39,27 @@
         {:else}
             <form
                 on:submit="{(event) => {
-                    event.preventDefault();
-                    is_loading = true;
-                    has_result = false;
+                    event.preventDefault()
+                    is_loading = true
+                    has_result = false
 
                     fetch(`/api/school?school_name=${school_name}`)
                         .then((resp) => resp.json())
                         .then((json) => {
                             if (json.message == null) {
-                                result_list = json;
+                                result_list = json
 
-                                is_loading = false;
-                                has_result = true;
+                                is_loading = false
+                                has_result = true
                             } else {
-                                alert(json.message);
-                                is_loading = false;
+                                alert(json.message)
+                                is_loading = false
                             }
                         })
                         .catch(() => {
-                            alert('알 수 없는 오류가 발생했습니다.');
-                            is_loading = false;
-                        });
+                            alert('알 수 없는 오류가 발생했습니다.')
+                            is_loading = false
+                        })
                 }}">
                 <p>
                     <label for="school_name">학교 찾기</label>
@@ -90,7 +90,7 @@
         <button
             class="button is-fullwidth result-close"
             on:click="{() => {
-                has_result = false;
+                has_result = false
             }}">다시 검색하기</button>
     </div>
 {/if}

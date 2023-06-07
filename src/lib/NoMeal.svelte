@@ -1,11 +1,11 @@
 <script>
-    import { onMount } from "svelte";
-    import Star from "comp/Star.svelte";
-    export let params = {};
+    import { onMount } from "svelte"
+    import Star from "lib/Star.svelte"
+    export let params = {}
 
     onMount(() => {
-        document.title = "급식 정보 없음";
-    });
+        document.title = "급식 정보 없음"
+    })
 </script>
 
 <div class="lf">

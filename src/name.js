@@ -1,5 +1,5 @@
-import { get } from "svelte/store";
-import { school_name_cache } from "src/store";
+import { get } from "svelte/store"
+import { school_name_cache } from "src/store"
 
 /**
  * @param {string} edu
@@ -7,9 +7,9 @@ import { school_name_cache } from "src/store";
  * @param {string} name
  */
 export function set_cache(edu, school, name) {
-    const cache = get(school_name_cache);
+    const cache = get(school_name_cache)
 
-    let cobj = cache.find((x) => x.edu == edu && x.school == school);
+    let cobj = cache.find((x) => x.edu == edu && x.school == school)
 
     if (cobj == null) {
         school_name_cache.set([
@@ -19,7 +19,7 @@ export function set_cache(edu, school, name) {
                 school,
                 name,
             },
-        ]);
+        ])
     }
 }
 
@@ -29,8 +29,8 @@ export function set_cache(edu, school, name) {
  * @returns {string|null} name
  */
 export function get_cache(edu, school) {
-    const cache = get(school_name_cache);
+    const cache = get(school_name_cache)
 
-    let cobj = cache.find((x) => x.edu == edu && x.school == school);
-    return cobj?.name;
+    let cobj = cache.find((x) => x.edu == edu && x.school == school)
+    return cobj?.name
 }

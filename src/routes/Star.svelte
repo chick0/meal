@@ -1,7 +1,7 @@
 <script>
-    import { onMount } from "svelte";
-    import { push } from "svelte-spa-router";
-    import { remove_old, get_star_list } from "src/star";
+    import { onMount } from "svelte"
+    import { push } from "svelte-spa-router"
+    import { remove_old, get_star_list } from "src/star"
 
     /**
      * @param {string} edu
@@ -9,24 +9,24 @@
      * @returns {string} path
      */
     function get_path(edu, school) {
-        return `/meal/${edu}/${school}`;
+        return `/meal/${edu}/${school}`
     }
 
-    let star_list = get_star_list();
+    let star_list = get_star_list()
 
     onMount(() => {
-        document.title = "🌟 즐겨찾기";
+        document.title = "🌟 즐겨찾기"
 
-        remove_old();
+        remove_old()
 
         if (star_list.length == 0) {
-            alert("등록된 즐겨찾기가 없습니다!");
-            push("/");
+            alert("등록된 즐겨찾기가 없습니다!")
+            push("/")
         } else if (star_list.length == 1) {
-            let star = star_list[0];
-            push(get_path(star.edu, star.school));
+            let star = star_list[0]
+            push(get_path(star.edu, star.school))
         }
-    });
+    })
 </script>
 
 <div class="lf">

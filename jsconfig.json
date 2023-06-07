@@ -22,7 +22,7 @@
         "baseUrl": ".",
         "paths": {
             "routes/*": ["./src/routes/*"],
-            "comp/*": ["./src/components/*"]
+            "lib/*": ["./src/lib/*"]
         },
         /**
          * Typecheck JS in `.svelte` and `.js` files by default.

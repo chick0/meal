@@ -1,20 +1,19 @@
 <script>
-    import { onMount } from "svelte";
-    import Star from "comp/Star.svelte";
-    import Poem from "comp/Poem.svelte";
-    import { get_star } from "src/star";
-    import { show_allergy, school_name } from "src/store";
-    import { set_cache } from "src/name";
-    import { get_day } from "src/date";
-    export let params = {};
+    import { onMount } from "svelte"
+    import Star from "lib/Star.svelte"
+    import { get_star } from "src/star"
+    import { show_allergy, school_name } from "src/store"
+    import { set_cache } from "src/name"
+    import { get_day } from "src/date"
+    export let params = {}
 
     /**
      * @param {string} origin
      * @returns {boolean}
      */
     function is_local(origin) {
-        let ori = origin.replace("국내산", "");
-        return ori.split("").filter((x) => x == "산").length == 0;
+        let ori = origin.replace("국내산", "")
+        return ori.split("").filter((x) => x == "산").length == 0
     }
 
     /**
@@ -38,33 +37,33 @@
      */
 
     /** @type {Meal[]} */
-    let json = [];
+    let json = []
 
-    let is_star_added = false;
+    let is_star_added = false
 
     onMount(() => {
         params.json.forEach((/** @type {Meal} */ meal) => {
-            let count = 0;
+            let count = 0
 
             meal.origin.forEach((origin) => {
                 if (is_local(origin) == false) {
-                    count += 1;
+                    count += 1
                 }
-            });
+            })
 
-            meal.import_origin_count = count;
-            meal.show_origin = false;
-        });
+            meal.import_origin_count = count
+            meal.show_origin = false
+        })
 
-        school_name.set(params.json[0].school);
+        school_name.set(params.json[0].school)
 
-        document.title = `${$school_name}의 급식 정보`;
-        set_cache(params.edu, params.school, $school_name);
+        document.title = `${$school_name}의 급식 정보`
+        set_cache(params.edu, params.school, $school_name)
 
-        is_star_added = get_star(params.edu, params.school) != null;
+        is_star_added = get_star(params.edu, params.school) != null
 
-        json = params.json;
-    });
+        json = params.json
+    })
 </script>
 
 <div class="lf">
@@ -75,15 +74,15 @@
                 <a
                     href="/hide-allergy-info"
                     on:click="{(event) => {
-                        event.preventDefault();
-                        show_allergy.set(false);
+                        event.preventDefault()
+                        show_allergy.set(false)
                     }}">알러지 정보 닫기</a>
             {:else}
                 <a
                     href="/show-allergy-info"
                     on:click="{(event) => {
-                        event.preventDefault();
-                        show_allergy.set(true);
+                        event.preventDefault()
+                        show_allergy.set(true)
                     }}">알러지 정보 확인하기</a>
             {/if}
             <b>·</b>
@@ -98,11 +97,11 @@
                 window.navigator.clipboard
                     .writeText(location.href)
                     .then(() => {
-                        alert('링크가 복사되었습니다.');
+                        alert('링크가 복사되었습니다.')
                     })
                     .catch(() => {
-                        prompt('아래의 텍스트를 복사해주세요.', location.href);
-                    });
+                        prompt('아래의 텍스트를 복사해주세요.', location.href)
+                    })
             }}">링크 복사하기</button>
 
         <Star params="{params}" is_button="{true}" />
@@ -126,26 +125,26 @@
                             class="high s"
                             href="/copy"
                             on:click="{(event) => {
-                                event.preventDefault();
+                                event.preventDefault()
 
                                 const menu = meal.menu
                                     .map((x) => {
                                         if (show_allergy && x.allergy.length > 0) {
-                                            return x.name + ' [' + x.allergy.join(',') + ']';
+                                            return x.name + ' [' + x.allergy.join(',') + ']'
                                         } else {
-                                            return x.name;
+                                            return x.name
                                         }
                                     })
-                                    .join('\n');
+                                    .join('\n')
 
                                 window.navigator.clipboard
                                     .writeText(menu)
                                     .then(() => {
-                                        alert('메뉴가 복사되었습니다.');
+                                        alert('메뉴가 복사되었습니다.')
                                     })
                                     .catch(() => {
-                                        prompt('아래의 텍스트를 복사해주세요.', menu);
-                                    });
+                                        prompt('아래의 텍스트를 복사해주세요.', menu)
+                                    })
                             }}">복사하기</a>
                     </th>
                     <td>
@@ -170,8 +169,8 @@
                             <a
                                 href="/toggle"
                                 on:click="{(event) => {
-                                    event.preventDefault();
-                                    meal.show_origin = !meal.show_origin;
+                                    event.preventDefault()
+                                    meal.show_origin = !meal.show_origin
                                 }}">
                                 <b>{meal.import_origin_count}</b>개의 식자재가 국내산이 아닙니다.
                             </a>
@@ -188,8 +187,6 @@
             </table>
         </div>
     {/each}
-
-    <Poem />
 </div>
 
 <style>

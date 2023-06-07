@@ -1,67 +1,67 @@
 <script>
-    import { push } from "svelte-spa-router";
-    import Meal from "comp/Meal.svelte";
-    import NoMeal from "comp/NoMeal.svelte";
-    import Week from "comp/Week.svelte";
-    import { from_ymd, is_today, to_ymd } from "src/date";
+    import { push } from "svelte-spa-router"
+    import Meal from "lib/Meal.svelte"
+    import NoMeal from "lib/NoMeal.svelte"
+    import Week from "lib/Week.svelte"
+    import { from_ymd, is_today, to_ymd } from "src/date"
 
     function fetch_meal() {
         if (now_date == to_ymd(params.date)) {
-            return;
+            return
         }
 
-        is_loading = true;
-        is_fail = false;
-        is_none = false;
+        is_loading = true
+        is_fail = false
+        is_none = false
 
         fetch(`/api/meal?edu=${params.edu}&school=${params.school}&date=${to_ymd(params.date)}`)
             .then((resp) => resp.json())
             .then((json) => {
-                is_loading = false;
-                now_date = to_ymd(params.date);
+                is_loading = false
+                now_date = to_ymd(params.date)
 
                 if (json.code == null) {
-                    params.json = json;
+                    params.json = json
                 } else {
                     if (json.code == "meal.result_none") {
-                        is_none = true;
+                        is_none = true
                     } else {
-                        is_fail = true;
-                        fail_message = json.message;
+                        is_fail = true
+                        fail_message = json.message
                     }
                 }
             })
             .catch(() => {
-                is_loading = false;
-                is_fail = true;
-                fail_message = "알 수 없는 오류가 발생했습니다.";
-                alert(fail_message);
-            });
+                is_loading = false
+                is_fail = true
+                fail_message = "알 수 없는 오류가 발생했습니다."
+                alert(fail_message)
+            })
     }
 
     /** @type {Object} */
-    export let params = {};
+    export let params = {}
 
     $: if (params.date == null) {
-        params.date = new Date();
-        fetch_meal();
+        params.date = new Date()
+        fetch_meal()
     } else if (typeof params.date == "string") {
-        params.date = from_ymd(params.date);
+        params.date = from_ymd(params.date)
 
         if (is_today(params.date)) {
-            push(`/meal/${params.edu}/${params.school}`);
+            push(`/meal/${params.edu}/${params.school}`)
         } else {
-            fetch_meal();
+            fetch_meal()
         }
     }
 
-    let is_loading = true;
-    let now_date = "";
+    let is_loading = true
+    let now_date = ""
 
-    let is_fail = false;
-    let fail_message = "";
+    let is_fail = false
+    let fail_message = ""
 
-    let is_none = false;
+    let is_none = false
 </script>
 
 {#if is_loading}
@@ -74,8 +74,8 @@
         <button
             class="button"
             on:click="{() => {
-                now_date = '';
-                fetch_meal();
+                now_date = ''
+                fetch_meal()
             }}">다시 시도하기</button>
     </div>
 {:else if is_none}
